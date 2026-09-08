@@ -408,7 +408,7 @@
           for(var i=0;i<data.events.length;i++){
             var ev=data.events[i];
             var isToday=ev.date===todayISO;
-            var dateLabel=isToday?'HOY':ev.dayLabel+' '+ev.dateNum;
+            var dateLabel=isToday?'TODAY':ev.dayLabel+' '+ev.dateNum;
             var timeStr=ev.allDay?'ALL DAY':(ev.start+(ev.end?' > '+ev.end:''));
             var dateColor=isToday?c.segOn:c.segDim;
             html+='<div class="ev" style="border-color:'+c.segOff+'">'+
