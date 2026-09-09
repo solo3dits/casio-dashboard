@@ -2,6 +2,8 @@
 // Calendarios configurados via variables de entorno (ver .env.example)
 
 const TZ = 'Europe/London';
+process.env.TZ = TZ;
+
 const DIAS_ES = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
 // Calendarios ICS (podés agregar/quitar los que quieras)
@@ -24,7 +26,7 @@ function parseICSDate(str) {
     return new Date(parseInt(str.slice(0,4)), parseInt(str.slice(4,6))-1, parseInt(str.slice(6,8)));
   }
   var y=str.slice(0,4),mo=str.slice(4,6),d=str.slice(6,8),h=str.slice(9,11),mi=str.slice(11,13),s=str.slice(13,15);
-  return new Date(y+'-'+mo+'-'+d+'T'+h+':'+mi+':'+s+(str.endsWith('Z') ? 'Z' : 'Z'));
+  return new Date(y+'-'+mo+'-'+d+'T'+h+':'+mi+':'+s+(str.endsWith('Z') ? 'Z' : ''));
 }
 
 function parseICS(icsText, calName, todayStr, limitStr) {
