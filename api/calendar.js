@@ -1,8 +1,8 @@
 // Vercel serverless function — eventos próximos 7 días
 // Calendarios configurados via variables de entorno (ver .env.example)
 
-const TZ = 'America/Argentina/Buenos_Aires';
-const DIAS_ES = ['DOM','LUN','MAR','MIÉ','JUE','VIE','SÁB'];
+const TZ = 'Europe/London';
+const DIAS_ES = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 
 // Calendarios ICS (podés agregar/quitar los que quieras)
 const ICS_CALENDARS = [
@@ -45,12 +45,12 @@ function parseICS(icsText, calName, todayStr, limitStr) {
           if (startStr >= todayStr && startStr <= limitStr) {
             var isAllDay = start.length === 8;
             events.push({
-              title:    current.summary || '(sin título)',
+              title:    current.summary || '(no title)',
               date:     startStr,
               dayLabel: DIAS_ES[startDate.getDay()],
               dateNum:  startStr.slice(8,10)+'/'+startStr.slice(5,7),
-              start:    isAllDay ? null : startDate.toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit', timeZone: TZ }),
-              end:      (!isAllDay && current.dtend) ? parseICSDate(current.dtend).toLocaleTimeString('es-AR', { hour:'2-digit', minute:'2-digit', timeZone: TZ }) : null,
+              start:    isAllDay ? null : startDate.toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone: TZ }),
+              end:      (!isAllDay && current.dtend) ? parseICSDate(current.dtend).toLocaleTimeString('en-GB', { hour:'2-digit', minute:'2-digit', timeZone: TZ }) : null,
               allDay:   isAllDay,
               calendar: calName,
               sortKey:  startStr + (isAllDay ? 'T00:00' : startDate.toISOString().slice(10))
