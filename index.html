@@ -129,6 +129,23 @@
     .w-desc { margin-top:0.8vh; font-size:2.5vw; letter-spacing:0.1em; text-transform:uppercase; }
     .w-meta { margin-top:0.6vh; font-size:2.5vw; line-height:1.9; }
 
+    /* WEATHER ANIMATIONS */
+    .w-anim {
+      display: inline-block; font-size: 5vw; vertical-align: top; margin-left: 2vw;
+      font-family: 'Share Tech Mono', 'Courier New', monospace; line-height: 0.9;
+    }
+    .anim-sun { -webkit-animation: pulse 2s infinite alternate; animation: pulse 2s infinite alternate; }
+    .anim-cloud { -webkit-animation: float 2s infinite alternate ease-in-out; animation: float 2s infinite alternate ease-in-out; }
+    .anim-rain { -webkit-animation: rain 0.7s infinite linear; animation: rain 0.7s infinite linear; letter-spacing: -3px; }
+    
+    @-webkit-keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+    @keyframes pulse { 0% { opacity: 0.4; } 100% { opacity: 1; } }
+    @-webkit-keyframes float { 0% { -webkit-transform: translateY(2px); } 100% { -webkit-transform: translateY(-2px); } }
+    @keyframes float { 0% { transform: translateY(2px); } 100% { transform: translateY(-2px); } }
+    @-webkit-keyframes rain { 0% { -webkit-transform: translateY(-2px); opacity:1; } 100% { -webkit-transform: translateY(4px); opacity:0; } }
+    @keyframes rain { 0% { transform: translateY(-2px); opacity:1; } 100% { transform: translateY(4px); opacity:0; } }
+
+
     /* AGENDA */
     .ev-list {
       display:-webkit-flex; display:flex;
@@ -374,11 +391,21 @@
           var sens=Math.round(d.hourly.apparent_temperature[h]!==undefined?d.hourly.apparent_temperature[h]:temp);
           var hum=d.hourly.relativehumidity_2m[h]!==undefined?d.hourly.relativehumidity_2m[h]:'--';
           var wind=Math.round(cw.windspeed);
+          
+          var code = cw.weathercode;
+          var wIcon = '';
+          if (code <= 1) wIcon = '<span class="w-anim anim-sun" style="color:'+c.segOn+'; text-shadow:0 0 12px '+c.glow+'">☼</span>';
+          else if (code <= 3) wIcon = '<span class="w-anim anim-cloud" style="color:'+c.segDim+'">☁</span>';
+          else if (code < 70) wIcon = '<span class="w-anim anim-rain" style="color:'+c.segOn+'">///</span>';
+          else if (code < 85) wIcon = '<span class="w-anim anim-cloud" style="color:'+c.segOn+'">***</span>';
+          else wIcon = '<span class="w-anim anim-sun" style="color:'+c.segOn+'">⚡</span>';
+
           el.innerHTML=
             '<div class="temp-wrap">'+
               '<div class="temp-ghost" style="color:'+c.segOff+'">88!</div>'+
               '<div class="temp-real" style="color:'+c.segOn+';text-shadow:0 0 12px '+c.glow+'">'+temp+'<sup>°C</sup></div>'+
             '</div>'+
+            wIcon +
             '<div class="w-desc" style="color:'+c.segDim+'">'+(WMO[cw.weathercode]||'--')+'</div>'+
             '<div class="w-meta" style="color:'+c.label+'">FEEL <b style="color:'+c.segOn+'">'+sens+'°</b> &nbsp; HUM <b style="color:'+c.segOn+'">'+hum+'%</b><br>WIND <b style="color:'+c.segOn+'">'+wind+' KM/H</b></div>';
         }catch(e){el.innerHTML='<div class="msg" style="color:'+c.segDim+'">NO DATA_</div>';}
