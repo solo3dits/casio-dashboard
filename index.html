@@ -34,7 +34,7 @@
       display:-webkit-flex; display:flex;
       -webkit-flex-direction:column; flex-direction:column;
       overflow:hidden;
-      box-shadow: inset 0 0 20px rgba(0,0,0,0.5); /* Added subtle depth */
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.5); 
     }
 
     .watch-inner {
@@ -61,7 +61,7 @@
       background:none; border-width:1px; border-style:solid;
       padding:0.3vh 0.7vw; border-radius:2px;
       -webkit-user-select:none; user-select:none;
-      margin-left: 0.6vw; /* Replaced gap */
+      margin-left: 0.6vw; 
     }
     .mode-btn:first-child { margin-left: 0; }
 
@@ -71,7 +71,7 @@
       -webkit-flex-direction:column; flex-direction:column;
       -webkit-align-items:center; align-items:center;
       -webkit-justify-content:center; justify-content:center;
-      -webkit-flex:1.3; flex:1.3;
+      -webkit-flex:1.2; flex:1.2; /* Adjusted slightly to give bottom more room */
       border-bottom-width:1px; border-bottom-style:solid;
       position:relative; z-index:2;
     }
@@ -93,7 +93,7 @@
     @-webkit-keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.06} }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.06} }
 
-    .date-row { display:-webkit-flex; display:flex; margin-top:5vh; }
+    .date-row { display:-webkit-flex; display:flex; margin-top:2vh; } /* Pulled up to free space */
     .date-chip { font-size:4.5vw; letter-spacing:0.22em; text-transform:uppercase; margin-right: 4vw; }
     .date-chip:last-child { margin-right: 0; }
 
@@ -108,12 +108,12 @@
       -webkit-flex:1; flex:1;
       display:-webkit-flex; display:flex;
       -webkit-flex-direction:column; flex-direction:column;
-      padding:1.5vh 2.5vw 2vh 2.5vw; overflow:hidden;
+      padding:1.5vh 2.5vw 1.5vh 2.5vw; overflow:hidden;
     }
     .panel-left { border-right-width:1px; border-right-style:solid; }
     .panel-label {
       font-size:0.9vw; letter-spacing:0.3em; text-transform:uppercase;
-      margin-bottom:1.5vh;
+      margin-bottom:1vh;
       border-bottom-width:1px; border-bottom-style:solid;
       padding-bottom:0.5vh;
       font-weight: bold;
@@ -131,8 +131,8 @@
       font-size:9vw; letter-spacing:0.04em; position:relative;
     }
     .temp-real sup { font-size:2.6vw; vertical-align:super; opacity:0.75; font-family:'Share Tech Mono','Courier New',monospace; }
-    .w-desc { margin-top:1.5vh; font-size:2.5vw; letter-spacing:0.1em; text-transform:uppercase; }
-    .w-meta { margin-top:0.8vh; font-size:2.5vw; line-height:1.9; }
+    .w-desc { margin-top:1vh; font-size:2.5vw; letter-spacing:0.1em; text-transform:uppercase; }
+    .w-meta { margin-top:0.5vh; font-size:2.5vw; line-height:1.5; } /* Tighter line-height */
 
     /* WEATHER ROW & LARGE ANIMATIONS */
     .w-top-row {
@@ -146,12 +146,10 @@
       -webkit-align-items: center; align-items: center;
       -webkit-justify-content: center; justify-content: center;
       font-family: 'Share Tech Mono', 'Courier New', monospace;
-      line-height: 0.8;
+      line-height: 0.6; /* Tighter bounding box so it doesn't push text down */
       margin-right: 1vw; 
       -webkit-flex-shrink: 0; flex-shrink: 0;
-      
-      /* Forced massive size using viewport width for older iOS support */
-      font-size: 14vw; 
+      font-size: 11vw; /* Massive, but slightly scaled to fit container safely */
     }
     .anim-sun { -webkit-animation: pulse 2s infinite alternate; animation: pulse 2s infinite alternate; }
     .anim-cloud { -webkit-animation: float 2.5s infinite alternate ease-in-out; animation: float 2.5s infinite alternate ease-in-out; }
@@ -167,19 +165,19 @@
     @-webkit-keyframes snow { 0% { -webkit-transform: translateY(-2px) rotate(0deg); } 100% { -webkit-transform: translateY(4px) rotate(360deg); } }
     @keyframes snow { 0% { transform: translateY(-2px) rotate(0deg); } 100% { transform: translateY(4px) rotate(360deg); } }
 
-
     /* AGENDA */
     .ev-list {
       display:-webkit-flex; display:flex;
       -webkit-flex-direction:column; flex-direction:column;
-      overflow:hidden;
-      padding-bottom: 2vh; /* Extra room at the bottom */
+      overflow-y:auto; /* Scrollable if events overflow */
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 1vh; 
     }
     .ev {
       display:-webkit-flex; display:flex;
       -webkit-flex-direction:column; flex-direction:column;
-      padding: 0.8vh 1.2vw; /* Increased padding for breathing room */
-      margin-bottom: 0.9vh; /* Replaced gap to separate the blocks */
+      padding: 6px 10px; /* absolute px instead of vh/vw for Safari 9 */
+      margin-bottom: 6px; /* absolute px to fix collapse bug */
       border-width:1px; border-style:solid;
       background:rgba(0,0,0,0.2);
     }
@@ -187,7 +185,7 @@
       display:-webkit-flex; display:flex;
       -webkit-flex-direction:row; flex-direction:row;
       -webkit-align-items:center; align-items:center;
-      margin-bottom: 0.5vh; /* Spacing between meta and title */
+      margin-bottom: 3px; 
     }
     .ev-date { font-size:2.5vw; -webkit-flex-shrink:0; flex-shrink:0; min-width:4.5vw; letter-spacing:0.05em; margin-right: 1.5vw; font-weight: bold; }
     .ev-time { font-size:2.5vw; -webkit-flex-shrink:0; flex-shrink:0; letter-spacing:0.04em; margin-right: 1.5vw; }
