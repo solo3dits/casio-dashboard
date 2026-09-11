@@ -3,15 +3,16 @@ module.exports = async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Cache-Control', 'no-store');
 
-  var lat = req.query.lat || '-34.6037';
-  var lon = req.query.lon || '-58.3816';
+  // Updated defaults to your UK coordinates
+  var lat = req.query.lat || '52.03178';
+  var lon = req.query.lon || '0.49759';
 
   var url = 'https://api.open-meteo.com/v1/forecast' +
     '?latitude=' + lat +
     '&longitude=' + lon +
     '&current_weather=true' +
     '&hourly=apparent_temperature,relativehumidity_2m' +
-    '&timezone=America%2FArgentina%2FBuenos_Aires' +
+    '&timezone=Europe%2FLondon' + // Changed from Argentina to UK Timezone
     '&forecast_days=1';
 
   try {
